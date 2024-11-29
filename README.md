@@ -14,7 +14,7 @@ This section to be completed later, after exploring an AI tool that builds a dia
 This section will describe how I'm going through this 
 
 ### Initial todo:
-1. Copy a hello world app in Go to use as a test subject. Ignore lack of tests.
+1. ~~Copy a hello world app in Go to use as a test subject. Ignore lack of tests.~~ Use an echoserver container image from Dockerhub.
 1. Create a project in GCP to deploy this to.
 1. Do some quick Terraform writing to create a VPC, the bucket, the message bus, all privately accessible. Possibly use public modules.
 1. Look more into Cloud Run, determine if an API Gateway is necessary, and determine if there is security functionality such as a WAF that can be paired with it.
@@ -23,7 +23,10 @@ This section will describe how I'm going through this
 1. Build out the Terraform for the Cloud Run function, image support, API Gateway/WAF (if necessary) and logging and metric support.
 
 
-### Things I'd like to do, but won't have time to do:
+### Things I'd like to do, but probably won't have time to do:
 1. Ability to create a custom service account that only has access to deploy what is necessary.
 1. Build a pipeline that includes auto-building the container image (if necessary) and deploying the infrastructure. These repositories could also be split up, so developing the app happens in one repository and supporting infrastructure is deployed in another. I'm not sure which is exactly the best route, due to my unfamiliarity with specific deployment strategies in Cloud Run.
 1. Creating a re-usable module for anyone to run container workloads on Cloud Run, with built in logging and metric support (and maybe a container registry).
+
+
+### 
