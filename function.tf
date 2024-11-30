@@ -44,8 +44,28 @@ resource "google_cloud_run_service" "this" {
   }
 }
 
+## create service account that cloudrun will use.
+## My preference is to give access to those items to this service account at those resource declarations.
 resource "google_service_account" "this" {
   account_id   = local.project_alias
   display_name = "CloudRun echoserver"
   project      = data.google_client_config.this.project
+}
+
+## allow anyone to invoke endpoint
+data "google_iam_policy" "noauth" {
+  binding {
+    role = "roles/run.invoker"
+    members = [
+      "allUsers",
+    ]
+  }
+}
+
+resource "google_cloud_run_service_iam_policy" "noauth" {
+  location = google_cloud_run_service.this.location
+  project  = data.google_client_config.this.project
+  service  = google_cloud_run_service.this.name
+
+  policy_data = data.google_iam_policy.noauth.policy_data
 }

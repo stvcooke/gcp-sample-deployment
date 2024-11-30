@@ -10,5 +10,5 @@ resource "google_storage_bucket" "this" {
   }
 
   # grant permission for bucket to use key (in kms.tf)
-  depends_on = [google_kms_crypto_key_iam_binding.binding]
+  depends_on = [google_kms_crypto_key_iam_binding.buckets]
 }

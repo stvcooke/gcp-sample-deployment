@@ -13,6 +13,18 @@ This section to be completed later, after exploring an AI tool that builds a dia
 ## My thought process
 This section will describe how I'm going through this 
 
+### Why choosing Cloud Run
+Kubernetes is too complex to set up for a single, simple application. It's better when used and owned by a team that can provide the platform to the developers.
+
+There's a similar thought when considering Compute, in that standing up a VM actually takes a lot, and is better when there's a setup in place to streamline security updates, ssh configurations, and monitoring.
+
+Cloud Run seems to fit the bill, but I have not found yet if I can have Cloud Run access pubsub services and buckets without going over the internet. In AWS, it'd be something similar to a vpc endpoint.
+
+### Why choosing standard storage for the bucket
+When an application takes a document and publishes to a message bus, it's likely that a second application (aka worker) will take that document and do something with it. Coldline, Nearline and Archive storage would cost more with their minimum stored duration requirements, than Standard would with the assumption that the object could be safely deleted relatively soon, once the worker has finished with it.
+
+I could have chosen "REGIONAL", to fit the vibe of the rest of the project, but I would assume that choosing `location = "europe-west4"` in the bucket would make it default regional. I had other things to spend time on than look into that, such as figuring out how IAM really worked in GCP.
+
 ### Initial todo:
 1. ~~Copy a hello world app in Go to use as a test subject. Ignore lack of tests.~~ Use an echoserver container image from Dockerhub.
 1. Create a project in GCP to deploy this to.
@@ -35,6 +47,3 @@ This section will describe how I'm going through this
 1. Set up a load balancer with WAF on a public-facing subnet in order to filter malicious traffic.
 1. Visibility, such as logging and metrics, for the cloud run function.
 1. Put cloud run function, pubsub, and bucket in a private VPC with endpoints to access and not make calls out to the internet.
-
-
-### 
